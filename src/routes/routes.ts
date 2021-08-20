@@ -19,7 +19,7 @@ export class Routes {
         app.route('/api/example')
             .get(/*En esta parte agregamos los middlewares que sean necesarios, ejemplo: CheckHeaders.validateClientJWT*,*/ this.exampleController.users)
         app.route('/api/users')
-            .get(CheckHeaders.test, this.exampleController.users)
+            .get(CheckHeaders.validateJWT, UserController.getUsers)
         app.route('/api/user').get(UserController.getUsers);
     }
 }

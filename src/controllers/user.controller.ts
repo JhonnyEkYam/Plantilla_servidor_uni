@@ -24,19 +24,18 @@ class userController{
         if(userData.user && userData.password){
             const user = await UserQueries.getUser(userData);
 
-            // console.log(user)
             const token = jwt.sign({
                 data: {
                     role: "user",
-                    user: user,
+                    user: user.data.user,
+                    user_id: user.data.user_id,
+                    email: user.data.email
                 }
             }, process.env.ENCRYPT_KEY)
             // userInfo.token = token;
             // this.msg = "ok";
             // this.ok = true;
-            
-
-            return res.json({data:user})
+            return res.json({data:user, token: token})
         }else{
             return res.status(400).json({ok:false});
         }
