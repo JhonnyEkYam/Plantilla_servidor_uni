@@ -12,8 +12,11 @@ class userQueries {
     }
 
     public async getUser(user){
+        const {Op} = require("sequelize");
         try {
-            const query = await UserModel.findOne({where: {user: user.user}});
+            const query = await UserModel.findOne({
+                where: {[Op.and]: [{user: user.user}, {password: user.password}]}
+            });
             if(query){
                 return {ok: true, data: query};
             }else {
